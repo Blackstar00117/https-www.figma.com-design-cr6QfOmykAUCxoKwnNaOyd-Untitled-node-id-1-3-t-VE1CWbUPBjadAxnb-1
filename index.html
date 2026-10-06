@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusCare Mobile App</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #e9eef3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* PHONE */
+.phone {
+    width: 390px;
+    height: 780px;
+    background: #f7f9fb;
+    border-radius: 35px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    position: relative;
+}
+
+/* STATUS BAR */
+.status {
+    height: 35px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 22px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* SCREENS */
+.screen {
+    display: none;
+    height: calc(100% - 35px);
+    animation: slideIn 0.35s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* HEADER */
+.header {
+    background: #176b87;
+    color: white;
+    padding: 25px 22px;
+    border-radius: 0 0 25px 25px;
+}
+
+.header h1 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* CONTENT */
+.content {
+    padding: 22px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* WELCOME CARD */
+.welcome-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+}
+
+.welcome-card h2 {
+    color: #176b87;
+    margin-bottom: 8px;
+}
+
+.welcome-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* SERVICES */
+.services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.service {
+    background: white;
+    border-radius: 18px;
+    padding: 20px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.25s;
+    border: 1px solid #e5e5e5;
+}
+
+.service:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 18px rgba(0,0,0,0.1);
+}
+
+.icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.service h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.service p {
+    color: #777;
+    font-size: 11px;
+}
+
+/* BUTTON */
+.btn {
+    width: 100%;
+    border: none;
+    background: #176b87;
+    color: white;
+    padding: 15px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #12576e;
+    transform: scale(1.02);
+}
+
+.back {
+    background: transparent;
+    color: #176b87;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #176b87;
+}
+
+/* CONFIRMATION */
+.confirmation {
+    text-align: center;
+    padding: 55px 25px;
+}
+
+.success-icon {
+    width: 90px;
+    height: 90px;
+    background: #dff5e8;
+    color: #25a35a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    margin: 0 auto 25px;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confirmation h2 {
+    margin-bottom: 10px;
+}
+
+.confirmation p {
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+/* VISIT CARD */
+.visit-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.visit-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.visit-row span:first-child {
+    color: #777;
+}
+
+.visit-row span:last-child {
+    font-weight: bold;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-item {
+    text-align: center;
+    color: #777;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.nav-item div {
+    font-size: 22px;
+    margin-bottom: 3px;
+}
+
+.nav-item.active {
+    color: #176b87;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <!-- STATUS BAR -->
+    <div class="status">
+        <span>9:41</span>
+        <span>📶 🔋</span>
+    </div>
+
+
+    <!-- HOME SCREEN -->
+    <div class="screen active" id="home">
+
+        <div class="header">
+            <h1>CampusCare</h1>
+            <p>Student Health Clinic</p>
+        </div>
+
+        <div class="content">
+
+            <div class="welcome-card">
+                <h2>Hello, Student! 👋</h2>
+                <p>
+                    Manage your clinic visits and health services
+                    quickly and conveniently.
+                </p>
+            </div>
+
+            <div class="section-title">
+                Clinic Services
+            </div>
+
+            <div class="services">
+
+                <div class="service" onclick="showScreen('appointment')">
+                    <div class="icon">🩺</div>
+                    <h3>Book Visit</h3>
+                    <p>Schedule a clinic visit</p>
+                </div>
+
+                <div class="service" onclick="showScreen('visits')">
+                    <div class="icon">📋</div>
+                    <h3>My Visits</h3>
+                    <p>View previous visits</p>
+                </div>
+
+                <div class="service">
+                    <div class="icon">💊</div>
+                    <h3>Medicine</h3>
+                    <p>Check prescriptions</p>
+                </div>
+
+                <div class="service">
+                    <div class="icon">📄</div>
+                    <h3>Certificates</h3>
+                    <p>Medical certificates</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('home')">
+                <div>⌂</div>
+                Home
+            </div>
+
+            <div class="nav-item" onclick="showScreen('appointment')">
+                <div>＋</div>
+                Book
+            </div>
+
+            <div class="nav-item" onclick="showScreen('visits')">
+                <div>📋</div>
+                Visits
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- APPOINTMENT SCREEN -->
+    <div class="screen" id="appointment">
+
+        <div class="content">
+
+            <button class="back" onclick="showScreen('home')">
+                ← Back
+            </button>
+
+            <h2 style="margin-bottom:8px;">
+                Book a Clinic Visit
+            </h2>
+
+            <p style="color:#777; margin-bottom:25px;">
+                Fill in the information below.
+            </p>
+
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" placeholder="Enter student ID">
+            </div>
+
+            <div class="form-group">
+                <label>Visit Type</label>
+
+                <select>
+                    <option>General Consultation</option>
+                    <option>Medical Certificate</option>
+                    <option>First Aid</option>
+                    <option>Medicine Request</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Date</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group">
+                <label>Reason for Visit</label>
+                <textarea rows="3"
+                    placeholder="Briefly describe your concern"></textarea>
+            </div>
+
+            <button class="btn" onclick="showScreen('confirmation')">
+                Confirm Visit
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONFIRMATION SCREEN -->
+    <div class="screen" id="confirmation">
+
+        <div class="confirmation">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>Visit Confirmed!</h2>
+
+            <p>
+                Your clinic visit has been successfully scheduled.
+                Please arrive at the clinic on your selected date.
+            </p>
+
+            <div class="visit-card">
+
+                <div class="visit-row">
+                    <span>Student</span>
+                    <span>Juan Dela Cruz</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Service</span>
+                    <span>General Consultation</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Status</span>
+                    <span>Confirmed</span>
+                </div>
+
+            </div>
+
+            <button class="btn" onclick="showScreen('home')">
+                Back to Home
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- VISITS SCREEN -->
+    <div class="screen" id="visits">
+
+        <div class="content">
+
+            <button class="back" onclick="showScreen('home')">
+                ← Back
+            </button>
+
+            <h2 style="margin-bottom:8px;">
+                My Clinic Visits
+            </h2>
+
+            <p style="color:#777; margin-bottom:25px;">
+                Your recent clinic activity.
+            </p>
+
+            <div class="visit-card">
+
+                <div class="visit-row">
+                    <span>Date</span>
+                    <span>October 3, 2026</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Service</span>
+                    <span>General Consultation</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Status</span>
+                    <span>Completed</span>
+                </div>
+
+            </div>
+
+            <div class="visit-card">
+
+                <div class="visit-row">
+                    <span>Date</span>
+                    <span>September 18, 2026</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Service</span>
+                    <span>Medical Certificate</span>
+                </div>
+
+                <div class="visit-row">
+                    <span>Status</span>
+                    <span>Completed</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function showScreen(screenID) {
+
+    // Hide all screens
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    // Show selected screen
+    document.getElementById(screenID).classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
